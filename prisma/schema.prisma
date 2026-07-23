@@ -49,3 +49,15 @@ model Prescription {
   nextVisit      DateTime?
   createdAt      DateTime  @default(now())
 }
+
+model Dispensing {
+  id              Int      @id @default(autoincrement())
+  tenantId        String
+  patientName     String
+  phone           String
+  cnic            String?
+  formulaNames    String
+  prepInstruction String
+  status          String   @default("Pending")
+  createdAt       DateTime @default(now())
+}
