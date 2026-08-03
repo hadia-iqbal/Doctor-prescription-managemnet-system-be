@@ -6,9 +6,10 @@ import { FormulaModule } from './formula/formula.module';
 import { PatientModule } from './patient/patient.module';
 import { PrescriptionModule } from './prescription/prescription.module';
 import { DispensingModule } from './dispensing/dispensing.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [FormulaModule, PatientModule, PrescriptionModule, DispensingModule],
+  imports: [FormulaModule, PatientModule, PrescriptionModule, DispensingModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
