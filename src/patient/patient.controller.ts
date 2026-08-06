@@ -17,6 +17,11 @@ export class PatientController {
     return this.patientService.search(query);
   }
 
+  @Get('check-cnic/:cnic')
+  checkCnic(@Param('cnic') cnic: string) {
+    return this.patientService.checkCnic(cnic);
+  }
+
   @Get()
   findAll() {
     return this.patientService.findAll();

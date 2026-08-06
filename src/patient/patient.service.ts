@@ -29,6 +29,13 @@ export class PatientService {
     });
   }
 
+  async checkCnic(cnic: string) {
+    const patient = await this.prisma.patient.findUnique({
+      where: { cnic },
+    });
+    return { exists: !!patient, patient };
+  }
+
   findOne(id: number) {
     return this.prisma.patient.findUnique({
       where: { id },
