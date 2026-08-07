@@ -31,7 +31,7 @@ model Patient {
   patientId String   @unique
   name      String
   phone     String
-  cnic      String?
+  cnic      String?  @unique
   age       Int?
   gender    String?
   createdAt DateTime @default(now())
