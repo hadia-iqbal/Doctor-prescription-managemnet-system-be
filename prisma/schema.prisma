@@ -18,12 +18,12 @@ model User {
 }
 
 model Formula {
-  id                 Int      @id @default(autoincrement())
-  name               String
-  category           String
-  actualComposition  String
-  prepInstruction    String?
-  createdAt          DateTime @default(now())
+  id                Int      @id @default(autoincrement())
+  name              String
+  category          String
+  actualComposition String
+  prepInstruction   String?
+  createdAt         DateTime @default(now())
 }
 
 model Patient {

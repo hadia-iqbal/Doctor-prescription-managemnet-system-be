@@ -9,15 +9,18 @@ export class PrescriptionService {
 
   async create(createPrescriptionDto: CreatePrescriptionDto) {
     let finalPatientId = createPrescriptionDto.patientId;
+    let isReturningPatient = false;
 
-    // If this is a new patient (no real patientId), create a Patient record first
     if (!finalPatientId || finalPatientId === 'NEW_PATIENT') {
-      const existing = await this.prisma.patient.findFirst({
-        where: { phone: createPrescriptionDto.phone },
-      });
+      const existing = createPrescriptionDto.cnic
+        ? await this.prisma.patient.findFirst({
+            where: { cnic: createPrescriptionDto.cnic },
+          })
+        : null;
 
       if (existing) {
         finalPatientId = existing.patientId;
+        isReturningPatient = true;
       } else {
         const generatedId = `P-${Date.now()}`;
         const newPatient = await this.prisma.patient.create({
@@ -32,11 +35,14 @@ export class PrescriptionService {
         });
         finalPatientId = newPatient.patientId;
       }
+    } else {
+      isReturningPatient = true;
     }
 
     const data = {
       ...createPrescriptionDto,
       patientId: String(finalPatientId),
+      patientType: isReturningPatient ? 'old' : 'new',
       nextVisit: createPrescriptionDto.nextVisit
         ? new Date(createPrescriptionDto.nextVisit)
         : null,
